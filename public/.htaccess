@@ -1,0 +1,9 @@
+Options -Indexes
+RewriteEngine On
+
+# Если запрашиваемый файл или папка существуют в реальности, открываем их напрямую
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Иначе перенаправляем всё на index.php
+RewriteRule ^(.*)$ index.php?path=$1 [QSA,L]
