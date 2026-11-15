@@ -18,6 +18,7 @@
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link" href="/cars">Каталог</a></li>
                 <li class="nav-item"><a class="nav-link" href="/news">Новости</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contacts">Контакты</a></li>
             </ul>
             <ul class="navbar-nav ms-auto">
                 <?php if (isset($_SESSION['user'])): ?>

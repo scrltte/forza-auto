@@ -30,18 +30,42 @@ class AuthController {
     }
 
     public function register(): void {
-        $name = $_POST['name'] ?? '';
-        $email = $_POST['email'] ?? '';
-        $phone = $_POST['phone'] ?? '';
-        $password = $_POST['password'] ?? '';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = trim($_POST['name'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+            $password = $_POST['password'] ?? '';
+            $phone = trim($_POST['phone'] ?? '');
 
-        if (User::create($name, $email, $phone, $password)) {
+            $cleanPhone = preg_replace('/\D/', '', $phone);
+
+            if (strlen($cleanPhone) !== 11) {
+                $_SESSION['error'] = 'Некорректный формат номера телефона. Введите 11 цифр.';
+                header('Location: /register');
+                exit;
+            }
+
+            if (User::findByEmail($email)) {
+                $_SESSION['error'] = 'Пользователь с таким email уже зарегистрирован.';
+                header('Location: /register');
+                exit;
+            }
+
+            if (User::findByPhone($cleanPhone)) {
+                $_SESSION['error'] = 'Пользователь с таким номером телефона уже зарегистрирован.';
+                header('Location: /register');
+                exit;
+            }
+
+            User::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => password_hash($password, PASSWORD_DEFAULT),
+                'phone' => $cleanPhone 
+            ]);
+
             header('Location: /login');
             exit;
         }
-        $_SESSION['error'] = 'Ошибка регистрации. Возможно, E-mail уже занят.';
-        header('Location: /register');
-        exit;
     }
 
     public function logout(): void {

@@ -103,6 +103,7 @@
                         <td>
                             <form action="/admin/cars/delete" method="POST" onsubmit="return confirm('Удалить этот автомобиль?');">
                                 <input type="hidden" name="car_id" value="<?= $c['id'] ?>">
+                                <a href="/admin/cars/edit?id=<?= $c['id'] ?>" class="btn btn-sm btn-warning me-1">Изменить</a>
                                 <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
                             </form>
                         </td>

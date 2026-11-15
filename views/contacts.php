@@ -1,45 +1,78 @@
 <?php require_once __DIR__ . '/layouts/header.php'; ?>
 
-<h1 class="mb-4">Контакты и информация о салоне</h1>
-
-<div class="row mb-5">
-    <div class="col-md-6">
-        <div class="card p-4 shadow-sm h-100">
-            <h3 class="text-orange mb-3">Автосалон «Форза»</h3>
-            <p><strong>Адрес:</strong> г. Екатеринбург, ул. Ленина, д. 104</p>
-            <p><strong>Телефон:</strong> +7 (343) 555-35-35</p>
-            <p><strong>E-mail:</strong> info@forza-auto.ru</p>
-            <p><strong>Режим работы:</strong> Пн-Вс: с 09:00 до 21:00 без перерывов и выходных.</p>
+<div class="container my-5">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="fw-bold">Контакты автосалона Forza</h1>
+            <p class="text-muted">Свяжитесь с нами любым удобным способом или посетите наш автосалон</p>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="card p-4 shadow-sm h-100">
-            <h3 class="mb-3">Обратная связь</h3>
-            <form action="/requests/store" method="POST">
-                <input type="hidden" name="type" value="consultation">
-                <div class="mb-3">
-                    <label class="form-label">Ваше имя</label>
-                    <input type="text" name="name" class="form-control" required value="<?= htmlspecialchars($_SESSION['user']['name'] ?? '') ?>">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Телефон</label>
-                    <input type="text" name="phone" class="form-control" required placeholder="+7 (XXX) XXX-XX-XX">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Сообщение</label>
-                    <textarea name="comment" class="form-control" rows="3" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Отправить сообщение</button>
-            </form>
-        </div>
-    </div>
-</div>
 
-<!-- Блок с картой (заглушка iframe) -->
-<div class="card shadow-sm p-3">
-    <h4 class="mb-3">Мы на карте</h4>
-    <div class="ratio ratio-16x9">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2195.4!2d60.6!3d56.8!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTbCsDQ4JzAwLjAiTiA2MMKwMzYnMDAuMCJF!5e0!3m2!1sru!2sru!4v1600000000000" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <div class="row g-4">
+        <!-- Блок с контактной информацией -->
+        <div class="col-md-5">
+            <div class="card border-0 shadow-sm h-100 p-4">
+                <h3 class="card-title fw-bold mb-4">Наш автосалон</h3>
+                
+                <div class="mb-3 d-flex align-items-start">
+                    <i class="bi bi-geo-alt-fill text-primary fs-4 me-3"></i>
+                    <div>
+                        <h6 class="fw-bold mb-1">Адрес</h6>
+                        <p class="text-muted mb-0">г. Екатеринбург, ул. Автомагистральная, 12</p>
+                    </div>
+                </div>
+
+                <div class="mb-3 d-flex align-items-start">
+                    <i class="bi bi-telephone-fill text-primary fs-4 me-3"></i>
+                    <div>
+                        <h6 class="fw-bold mb-1">Телефон</h6>
+                        <p class="text-muted mb-0"><a href="tel:+73430000000" class="text-decoration-none text-muted">+7 (343) 000-00-00</a></p>
+                    </div>
+                </div>
+
+                <div class="mb-3 d-flex align-items-start">
+                    <i class="bi bi-envelope-fill text-primary fs-4 me-3"></i>
+                    <div>
+                        <h6 class="fw-bold mb-1">Email</h6>
+                        <p class="text-muted mb-0"><a href="mailto:info@forza-auto.local" class="text-decoration-none text-muted">info@forza-auto.local</a></p>
+                    </div>
+                </div>
+
+                <div class="mb-4 d-flex align-items-start">
+                    <i class="bi bi-clock-fill text-primary fs-4 me-3"></i>
+                    <div>
+                        <h6 class="fw-bold mb-1">Режим работы</h6>
+                        <p class="text-muted mb-0">Пн - Вс: с 09:00 до 21:00 (без выходных)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Блок с формой обратной связи -->
+        <div class="col-md-7">
+            <div class="card border-0 shadow-sm p-4">
+                <h3 class="card-title fw-bold mb-4">Остались вопросы? Напишите нам</h3>
+                
+                <form action="/requests/store" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Ваше имя</label>
+                        <input type="text" name="name" class="form-control" placeholder="Иван" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Номер телефона</label>
+                        <input type="tel" name="phone" class="form-control" placeholder="+7 (999) 000-00-00" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Сообщение / Вопрос</label>
+                        <textarea name="message" class="form-control" rows="4" placeholder="Интересует автомобиль..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-2">Отправить сообщение</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 

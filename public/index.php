@@ -10,9 +10,12 @@ require_once __DIR__ . '/../src/Controllers/ApiController.php';
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-$carController = new CarController();$authController = new AuthController();
-$newsController = new NewsController();$requestController = new RequestController();
-$adminController = new AdminController();$apiController = new ApiController();
+$carController = new CarController();
+$authController = new AuthController();
+$newsController = new NewsController();
+$requestController = new RequestController();
+$adminController = new AdminController();
+$apiController = new ApiController();
 
 switch ($uri) {
     case '/':
@@ -40,11 +43,11 @@ switch ($uri) {
         break;
 
     case '/login':
-        $_SERVER['REQUEST_METHOD'] === 'POST' ? $authController->login() :$authController->showLogin();
+        $_SERVER['REQUEST_METHOD'] === 'POST' ? $authController->login() : $authController->showLogin();
         break;
 
     case '/register':
-        $_SERVER['REQUEST_METHOD'] === 'POST' ? $authController->register() :$authController->showRegister();
+        $_SERVER['REQUEST_METHOD'] === 'POST' ? $authController->register() : $authController->showRegister();
         break;
 
     case '/logout':
@@ -62,6 +65,16 @@ switch ($uri) {
 
     case '/admin/cars/store':
         $adminController->storeCar();
+        break;
+
+    // НОВОЕ: Открытие формы редактирования автомобиля (например: /admin/cars/edit?id=1)
+    case '/admin/cars/edit':
+        $adminController->editCar();
+        break;
+
+    // НОВОЕ: Обработка отправки формы редактирования (POST-запрос)
+    case '/admin/cars/update':
+        $adminController->updateCar();
         break;
 
     case '/admin/cars/delete':
@@ -82,9 +95,9 @@ switch ($uri) {
         break;
 
     default:
-        if (preg_match('#^/cars/(\d+)$#', $uri,$matches)) {
+        if (preg_match('#^/cars/(\d+)$#', $uri, $matches)) {
             $carController->show((int)$matches[1]);
-        } elseif (preg_match('#^/news/(.+)$#', $uri,$matches)) {
+        } elseif (preg_match('#^/news/(.+)$#', $uri, $matches)) {
             $newsController->show($matches[1]);
         } else {
             header("HTTP/1.0 404 Not Found");

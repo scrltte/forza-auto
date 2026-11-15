@@ -26,12 +26,33 @@ class Car {
         $db = Database::getConnection();
         $stmt = $db->prepare("SELECT * FROM cars WHERE id = ?");
         $stmt->execute([$id]);
-        return $stmt->fetch() ?: null;
+        $car = $stmt->fetch();
+        return $car ?: null;
     }
+
+    public static function update(int $id, array $data): bool {
+    $db = Database::getConnection();
+    $stmt = $db->prepare("UPDATE cars SET brand = ?, model = ?, year = ?, body_type = ?, price = ?, mileage = ?, engine = ?, transmission = ?, drive = ?, color = ?, description = ?, image = ? WHERE id = ?");
+    return $stmt->execute([
+        $data['brand'], 
+        $data['model'], 
+        $data['year'], 
+        $data['body_type'], 
+        $data['price'], 
+        $data['mileage'], 
+        $data['engine'], 
+        $data['transmission'], 
+        $data['drive'], 
+        $data['color'], 
+        $data['description'], 
+        $data['image'], 
+        $id
+    ]);
+}
     
     public static function delete(int $id): bool {
-    $db = Database::getConnection();
-    $stmt = $db->prepare("DELETE FROM cars WHERE id = ?");
-    return $stmt->execute([$id]);
-}
+        $db = Database::getConnection();
+        $stmt = $db->prepare("DELETE FROM cars WHERE id = ?");
+        return $stmt->execute([$id]);
+    }
 }

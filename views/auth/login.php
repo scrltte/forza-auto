@@ -2,9 +2,6 @@
 <div class="row justify-content-center">
     <div class="col-md-5">
         <h2 class="mb-4">Авторизация</h2>
-        <?php if (!empty($_SESSION['error'])): ?>
-            <div class="alert alert-danger"><?= $_SESSION['error']; unset($_SESSION['error']); ?></div>
-        <?php endif; ?>
         <form action="/login" method="POST">
             <div class="mb-3">
                 <label class="form-label">E-mail</label>

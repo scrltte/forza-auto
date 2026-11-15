@@ -72,6 +72,27 @@ class AdminController {
         exit;
     }
 
+    public function editCar(): void {
+        $id = (int)($_GET['id'] ?? 0);
+        $car = Car::getById($id);
+        
+        if (!$car) {
+            header("HTTP/1.0 404 Not Found");
+            echo "Автомобиль не найден";
+            return;
+        }
+        
+        require_once __DIR__ . '/../../views/cars/edit.php';
+    }
+
+    public function updateCar(): void {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+            Car::update((int)$_POST['id'], $_POST);
+            header('Location: /admin');
+            exit;
+        }
+    }
+
     public function updateRequestStatus(): void {
         $this->checkAdmin();
         $requestId = $_POST['request_id'] ?? null;

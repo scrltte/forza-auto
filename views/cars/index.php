@@ -21,8 +21,7 @@
         </div>
     </div>
 
-    <!-- Список авто -->
-    <div class="col-md-9">
+<div class="col-md-9">
         <div class="row">
             <?php if (empty($cars)): ?>
                 <div class="col-12"><p>Автомобили не найдены.</p></div>
@@ -30,7 +29,13 @@
                 <?php foreach ($cars as $car): ?>
                     <div class="col-md-4 mb-4">
                         <div class="card h-100 shadow-sm">
-                            <img src="<?= htmlspecialchars($car['image'] ?? '/images/no-photo.jpg') ?>" class="card-img-top" alt="<?= htmlspecialchars($car['brand']) ?>">
+                            <div style="height: 200px; overflow: hidden; background-color: #f8f9fa;">
+                                <img src="<?= htmlspecialchars($car['image'] ?? '/images/no-photo.jpg') ?>" 
+                                     class="w-100 h-100" 
+                                     style="object-fit: cover;" 
+                                     alt="<?= htmlspecialchars($car['brand']) ?>">
+                            </div>
+                            
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title"><?= htmlspecialchars($car['brand'] . ' ' . $car['model']) ?></h5>
                                 <p class="card-text text-muted"><?= $car['year'] ?> г. | <?= $car['engine'] ?></p>
@@ -43,6 +48,5 @@
             <?php endif; ?>
         </div>
     </div>
-</div>
 
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>
